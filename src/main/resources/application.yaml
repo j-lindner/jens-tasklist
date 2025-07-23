@@ -1,0 +1,37 @@
+spring.application.name: jens-tasklist
+
+# remark: those credentials have, of course, been revoked :-)
+camunda:
+  client:
+    mode: saas
+    auth:
+      client-id: <client_id>
+      client-secret: <client_secret>
+    cloud:
+      cluster-id: <cluster_id>>
+      region: <region>
+
+tasklist:
+  client:
+    api-version: v2
+    profile: saas
+    region: ${camunda.client.region}
+    enabled: true
+    base-url: https://${camunda.client.cloud.region}.tasklist.camunda.io/${camunda.client.cloud.cluster-id}
+    auth-url: https://login.cloud.camunda.io/oauth/token
+    audience: tasklist.camunda.io
+    cluster-id: ${camunda.client.cloud.cluster-id}
+    client-id: ${camunda.client.auth.client-id}
+    client-secret: ${camunda.client.auth.client-secret}
+
+operate:
+  client:
+    profile: saas
+    region: ${camunda.client.region}
+    enabled: true
+    base-url: https://${camunda.client.cloud.region}.operate.camunda.io/${camunda.client.cloud.cluster-id}
+    auth-url: https://login.cloud.camunda.io/oauth/token
+    audience: operate.camunda.io
+    cluster-id: ${camunda.client.cloud.cluster-id}
+    client-id: ${camunda.client.auth.client-id}
+    client-secret: ${camunda.client.auth.client-secret}

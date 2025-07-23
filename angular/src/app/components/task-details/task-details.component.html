@@ -1,0 +1,44 @@
+@if (viewMode) {
+  @if (currentTask.id) {
+    <h4>Task</h4>
+    <div>
+      <label><strong>Id:</strong></label> {{ currentTask.id }}
+    </div>
+    <div>
+      <label><strong>assignee:</strong></label>
+      {{ currentTask.assignee }}
+    </div>
+    <div>
+      <label><strong>FormKey:</strong></label>
+      {{ currentTask.formKey }}
+    </div>
+    <div>
+      <label><strong>Name:</strong></label>
+      {{ currentTask.name }}
+    </div>
+    <table *ngIf="currentTask.variables?.length">
+      <b>Variables:</b>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Type</th>
+      </tr>
+      <tr *ngFor="let variable of currentTask.variables">
+        <td>{{ variable.name }}</td>
+        <td>{{ variable.value }}</td>
+        <td>{{ variable.type }}</td>
+      </tr>
+    </table>
+
+    <a
+      class="badge badge-warning"
+      [routerLink]="['/forms', currentTask.formKey]"
+      [state]="{ task: currentTask }"
+    >
+      Open UI for given User Task
+    </a>
+  } @else {
+    <p>Please click on a Task</p>
+  }
+
+}

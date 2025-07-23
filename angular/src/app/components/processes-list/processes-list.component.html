@@ -1,0 +1,29 @@
+<div class="row">
+
+  <!-- LEFT COLUMN: Lists -->
+  <div class="col-md-6">
+    <h4>All Processes</h4>
+    <ul class="list-group">
+      <li *ngFor="let processInstance of allProcessInstances"
+          class="list-group-item"
+          (click)="setActiveProcessInstance(processInstance)">
+        {{ processInstance.bpmnProcessId }} - started: {{ processInstance.startDate }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- RIGHT COLUMN: Details -->
+  <div class="col-md-6">
+    <h4>Here, there could be details of the process instance</h4>
+  </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<h2> create new process </h2>
+<input type="text" [(ngModel)]="newAssignee1" placeholder="Assignee 1">
+<input type="text" [(ngModel)]="newAssignee2" placeholder="Assignee 2">
+<input type="text" [(ngModel)]="var1" placeholder="var1">
+<button class="btn btn-primary" (click)="createProcessInstance()">Start Process</button>
