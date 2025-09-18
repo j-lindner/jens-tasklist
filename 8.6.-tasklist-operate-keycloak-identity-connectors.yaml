@@ -1,0 +1,174 @@
+global:
+  multitenancy:
+    enabled: true
+  ingress:
+    enabled: true
+    className: nginx
+    host: "jensil.de"
+    tls:
+      enabled: true
+      secretName: camunda-tls
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      ingress.kubernetes.io/rewrite-target: "/"
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+      nginx.ingress.kubernetes.io/proxy-buffer-size: "64k"
+      nginx.ingress.kubernetes.io/proxy-buffers: "8 64k"
+      nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "64k"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+  identity:
+    auth:
+      publicIssuerUrl: "https://jensil.de/auth/realms/camunda-platform"
+      identity:
+        redirectUrl: "https://jensil.de/identity"
+      operate:
+        existingSecret: "demodemo1234!"
+        redirectUrl: "https://jensil.de/operate"
+      tasklist:
+        existingSecret: "demodemo1234!"
+        redirectUrl: "https://jensil.de/tasklist"
+      optimize:
+        existingSecret: "demodemo1234!"
+        redirectUrl: "https://jensil.de/optimize"
+      webModeler:
+        existingSecret: "demodemo1234!"
+        redirectUrl: "https://jensil.de/modeler"
+      console:
+        redirectUrl: "https://jensil.de/console"
+      zeebe:
+        existingSecret: "demodemo1234!"
+
+operate:
+  enabled: true
+  contextPath: "/operate"
+  env:
+    - name: LOGGING_LEVEL_ROOT
+      value: "INFO"
+
+identity:
+  contextPath: "/identity"
+  fullURL: "https://jensil.de/identity"
+  env:
+    - name: LOGGING_LEVEL_IO_CAMUNDA_IDENTITY
+      value: DEBUG
+    # truststore for communication to keycloak
+    - name: JAVA_TOOL_OPTIONS
+      value: >-
+        -Dlogging.level.org.apache.http.impl.execchain.MainClientExec=DEBUG
+        -Dlogging.level.org.apache.http.headers=DEBUG 
+        -Dlogging.level.org.apache.http.wire=DEBUG
+
+identityKeycloak:
+  enabled: true
+
+  extraEnvVars:
+    - name: KEYCLOAK_PROXY_ADDRESS_FORWARDING
+      value: "true"
+    - name: KEYCLOAK_FRONTEND_URL
+      value: "https://jensil.de/auth"
+
+zeebeGateway:
+  replicas: 1
+  contextPath: "/rest"
+  ingress:
+    grpc:
+      enabled: true
+      host: "jensil.de"
+      tls:
+        enabled: true
+        secretName: camunda-tls
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          ingress.kubernetes.io/rewrite-target: "/"
+          nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          nginx.ingress.kubernetes.io/proxy-buffer-size: "64k"
+          nginx.ingress.kubernetes.io/proxy-buffers: "8 64k"
+          nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "64k"
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    rest:
+      enabled: true
+      host: "jensil.de"
+      path: "/rest"
+      tls:
+        enabled: true
+        secretName: camunda-tls
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        ingress.kubernetes.io/rewrite-target: "/"
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "64k"
+        nginx.ingress.kubernetes.io/proxy-buffers: "8 64k"
+        nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "64k"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "2048Mi"
+      cpu: "1000m"
+
+zeebe:
+  clusterSize: 1
+  partitionCount: 1
+  replicationFactor: 1
+  pvcSize: 10Gi
+
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512M"
+    limits:
+      cpu: "512m"
+      memory: "2Gi"
+  env:
+    - name: ZEEBE_BROKER_EXECUTION_METRICS_EXPORTER_ENABLED
+      value: "true"
+
+tasklist:
+  enabled: true
+  contextPath: "/tasklist"
+  env:
+    - name: LOGGING_LEVEL_ROOT
+      value: "INFO"
+
+optimize:
+  enabled: false
+  contextPath: "/optimize"
+
+connectors:
+  enabled: true
+  inbound:
+    mode: oauth
+
+
+webModeler:
+  enabled: false
+  contextPath: "/modeler"
+  restapi:
+    mail:
+      fromAddress: YOUR_EE_EMAIL
+  env:
+    - name: PLAY_ENABLED
+      value: true
+
+console:
+  enabled: false
+  contextPath: "/console"
+
+webModelerPostgresql:
+  enabled: true
+  auth:
+    existingSecret: "camunda-credentials"
+    secretKeys:
+      adminPasswordKey: webmodeler-postgres-admin-password
+      userPasswordKey: webmodeler-postgres-user-password
+
+elasticsearch:
+  master:
+    replicaCount: 1
+  global:
+    kibanaEnabled: false
+
+identityPostgresql:
+  enabled: true

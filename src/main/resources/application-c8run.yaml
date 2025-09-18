@@ -1,0 +1,14 @@
+spring.application.name: jens-tasklist
+
+operate:
+  client:
+    profile: simple
+    base-url: http://localhost:8080
+
+tasklist:
+  client:
+    profile: simple
+    base-url: http://localhost:8080
+
+server:
+  port: 8081

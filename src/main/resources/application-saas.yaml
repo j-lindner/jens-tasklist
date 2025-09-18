@@ -1,6 +1,5 @@
 spring.application.name: jens-tasklist
 
-# remark: those credentials have, of course, been revoked :-)
 camunda:
   client:
     mode: saas

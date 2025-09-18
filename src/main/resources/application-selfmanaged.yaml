@@ -1,0 +1,37 @@
+spring.application.name: jens-tasklist
+
+# remark: those credentials have, of course, been revoked :-)
+camunda:
+  client:
+    mode: self-managed
+    tenant-id: <default>
+    auth:
+      token-url: https://jensil.de/auth/realms/camunda-platform/protocol/openid-connect/token
+      client-id: jens-tasklist
+      client-secret: <client-secret-in-identity>
+    zeebe:
+      enabled: true
+      rest-address: https://jensil.de/rest
+      grpc-address: https://jensil.de/
+      audience: zeebe-api
+      prefer-rest-over-grpc: true
+
+
+operate:
+  client:
+    profile: oidc
+    client-id: ${camunda.client.auth.client-id}
+    client-secret: ${camunda.client.auth.client-secret}
+    auth-url: ${camunda.client.auth.token-url}
+    base-url: https://jensil.de/operate
+
+tasklist:
+  client:
+    profile: oidc
+    client-id: ${camunda.client.auth.client-id}
+    client-secret: ${camunda.client.auth.client-secret}
+    auth-url: ${camunda.client.auth.token-url}
+    base-url: https://jensil.de/tasklist
+
+server:
+  port: 8081
