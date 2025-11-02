@@ -1,5 +1,5 @@
 @if (viewMode) {
-  @if (currentTask.id) {
+  @if (currentTask.userTaskKey) {
     <h4>Task</h4>
     <div>
       <label><strong>Id:</strong></label> {{ currentTask.id }}
@@ -9,12 +9,24 @@
       {{ currentTask.assignee }}
     </div>
     <div>
-      <label><strong>FormKey:</strong></label>
-      {{ currentTask.formKey }}
+      <label><strong>External Form Reference:</strong></label>
+      {{ currentTask.externalFormReference }}
     </div>
     <div>
       <label><strong>Name:</strong></label>
       {{ currentTask.name }}
+    </div>
+    <div>
+      <label><strong>State:</strong></label>
+      {{ currentTask.state }}
+    </div>
+    <div>
+      <label><strong>Element ID:</strong></label>
+      {{ currentTask.elementId }}
+    </div>
+    <div>
+      <label><strong>External Form Reference:</strong></label>
+      {{ currentTask.externalFormReference }}
     </div>
     <table *ngIf="currentTask.variables?.length">
       <b>Variables:</b>
@@ -32,7 +44,7 @@
 
     <a
       class="badge badge-warning"
-      [routerLink]="['/forms', currentTask.formKey]"
+      [routerLink]="['/forms', currentTask.externalFormReference]"
       [state]="{ task: currentTask }"
     >
       Open UI for given User Task

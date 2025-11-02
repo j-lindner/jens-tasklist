@@ -8,11 +8,12 @@ export class Task {
   creationDate?: string;
   completionDate?: string;
   taskState?: string;
+  state?: string;
   candidateUsers?: string[];
   candidateGroups?: string[];
   followUpDate?: string;
   dueDate?: string;
-  formKey?: string;
+  // formKey?: string;
   formId?: string;
   formVersion?: number;
   isFormEmbedded?: boolean;
@@ -28,4 +29,11 @@ export class Task {
     type: string;
   }[];
   implementation?: string;
+  userTaskKey?: number;
+  elementId?: string;
+  elementInstanceKey?: number;
+  bpmnProcessId?: string;
+  processDefinitionVersion?: number;
+  externalFormReference?: string;
+  customHeaders?: { [key: string]: any };
 }

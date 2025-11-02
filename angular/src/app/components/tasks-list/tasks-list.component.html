@@ -6,7 +6,8 @@
       <li *ngFor="let task of allTasks"
           class="list-group-item"
           (click)="setActiveTask(task)">
-        {{ task.name }}
+        <div><strong>Name:</strong> {{ task.name }}</div>
+        <div><strong>External Form Reference:</strong> {{ task.externalFormReference }}</div>
       </li>
     </ul>
 
@@ -15,7 +16,8 @@
       <li *ngFor="let task of manuAssignedTasks"
           class="list-group-item"
           (click)="setActiveTask(task)">
-        {{ task.name }}
+        <div><strong>Name:</strong> {{ task.name }}</div>
+        <div><strong>External Form Reference:</strong> {{ task.externalFormReference }}</div>
       </li>
     </ul>
 
@@ -24,7 +26,8 @@
       <li *ngFor="let task of var1Val1Tasks"
           class="list-group-item"
           (click)="setActiveTask(task)">
-        {{ task.name }}
+        <div><strong>Name:</strong> {{ task.name }}</div>
+        <div><strong>External Form Reference:</strong> {{ task.externalFormReference }}</div>
       </li>
     </ul>
   </div>

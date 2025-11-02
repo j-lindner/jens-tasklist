@@ -26,7 +26,7 @@ export class TasksListComponent implements OnInit {
     this.taskService.getAll().subscribe({
       next: (data) => {
         this.allTasks = data;
-        console.log(data);
+        console.log("retrieve all tasks " + data);
       },
       error: (e) => console.error(e)
     });
@@ -36,7 +36,7 @@ export class TasksListComponent implements OnInit {
     this.taskService.getManuAssigned().subscribe({
       next: (data) => {
         this.manuAssignedTasks = data;
-        console.log(data);
+        console.log("retrieve manu-assigned task " + data);
       },
       error: (e) => console.error(e)
     });
@@ -46,7 +46,7 @@ export class TasksListComponent implements OnInit {
     this.taskService.getVar1Val1().subscribe({
       next: (data) => {
         this.var1Val1Tasks = data;
-        console.log(data);
+        console.log("retrieve var1=val1 tasks " + data);
       },
       error: (e) => console.error(e)
     });
@@ -58,6 +58,7 @@ export class TasksListComponent implements OnInit {
   }
 
   setActiveTask(task: Task): void {
+    console.log("set active task:", task);
     this.currentTask = task;
   }
 

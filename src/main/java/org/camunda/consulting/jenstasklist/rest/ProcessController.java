@@ -1,11 +1,8 @@
 package org.camunda.consulting.jenstasklist.rest;
 
-import io.camunda.operate.CamundaOperateClient;
-import io.camunda.operate.exception.OperateException;
-import io.camunda.operate.model.ProcessInstance;
-import io.camunda.operate.search.SearchQuery;
-import io.camunda.zeebe.client.ZeebeClient;
-import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
+import io.camunda.client.CamundaClient;
+import io.camunda.client.api.response.ProcessInstanceEvent;
+import io.camunda.client.api.search.response.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +15,18 @@ import java.util.Map;
 public class ProcessController {
 
     @Autowired
-    private ZeebeClient zeebeClient;
+    private CamundaClient client;
 
-    @Autowired
-    private CamundaOperateClient operateClient;
 
     @PostMapping("/process")
     public ProcessInstanceEvent createProcess(@RequestBody Map<String, Object> processVariables) {
-        ProcessInstanceEvent processInstanceEvent = zeebeClient.newCreateInstanceCommand().bpmnProcessId("Process1").latestVersion().variables(processVariables)
+        return client.newCreateInstanceCommand().bpmnProcessId("Process1").latestVersion().variables(processVariables)
                 .send().join();
-        return processInstanceEvent;
     }
 
     @GetMapping("/processes")
-    public List<ProcessInstance> getProcesses() throws OperateException {
-        return operateClient.searchProcessInstances(new SearchQuery());
+    public List<ProcessInstance> getProcesses() {
+         return client.newProcessInstanceSearchRequest().send().join().items();
     }
 
 }

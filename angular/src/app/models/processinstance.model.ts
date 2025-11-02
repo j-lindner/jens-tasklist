@@ -1,7 +1,8 @@
 export class ProcessInstance {
   key?: number;
   processVersion?: number;
-  bpmnProcessId?: string;
+  processDefinitionId?: string;
+  processDefinitionVersion?: string
   parentKey?: number;
   parentFlowNodeInstanceKey?: number;
   startDate?: string;

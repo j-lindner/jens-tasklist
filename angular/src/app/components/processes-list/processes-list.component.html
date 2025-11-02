@@ -7,7 +7,9 @@
       <li *ngFor="let processInstance of allProcessInstances"
           class="list-group-item"
           (click)="setActiveProcessInstance(processInstance)">
-        {{ processInstance.bpmnProcessId }} - started: {{ processInstance.startDate }}
+        <div><strong>Definition ID:</strong> {{ processInstance.processDefinitionId }}</div>
+        <div><strong>Version:</strong> {{ processInstance.processDefinitionVersion }}</div>
+        <div><strong>Started:</strong> {{ processInstance.startDate }}</div>
       </li>
     </ul>
   </div>
@@ -23,7 +25,16 @@
 <br>
 <br>
 <h2> create new process </h2>
-<input type="text" [(ngModel)]="newAssignee1" placeholder="Assignee 1">
-<input type="text" [(ngModel)]="newAssignee2" placeholder="Assignee 2">
-<input type="text" [(ngModel)]="var1" placeholder="var1">
-<button class="btn btn-primary" (click)="createProcessInstance()">Start Process</button>
+<div class="form-group mb-2">
+  <label for="assignee1"><strong>Assignee 1:</strong></label>
+  <input id="assignee1" type="text" [(ngModel)]="newAssignee1" class="form-control" placeholder="Assignee 1">
+</div>
+<div class="form-group mb-2">
+  <label for="assignee2"><strong>Assignee 2:</strong></label>
+  <input id="assignee2" type="text" [(ngModel)]="newAssignee2" class="form-control" placeholder="Assignee 2">
+</div>
+<div class="form-group mb-2">
+  <label for="var1"><strong>Var1:</strong></label>
+  <input id="var1" type="text" [(ngModel)]="var1" class="form-control" placeholder="var1">
+</div>
+<button class="btn btn-primary mt-2" (click)="createProcessInstance()">Start Process</button>

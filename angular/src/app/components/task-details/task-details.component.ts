@@ -31,7 +31,7 @@ export class TaskDetailsComponent implements OnInit {
     this.taskService.get(id).subscribe({
       next: (data) => {
         this.currentTask = data;
-        console.log(data);
+        console.log("getting task in taskdetails" + data);
       },
       error: (e) => console.error(e)
     });
