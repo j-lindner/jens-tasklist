@@ -5,6 +5,7 @@ import { ProcessesListComponent } from './components/processes-list/processes-li
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { Form1aComponent } from './forms/form1a/form1a.component';
 import { Form1bComponent } from './forms/form1b/form1b.component';
+import {PushedTaskListComponent} from "./components/pushed-task-list/pushed-task-list.component";
 
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'tasks/:id', component: TaskDetailsComponent },
   { path: 'forms/formForUserTask1a', component: Form1aComponent },
   { path: 'forms/formForUserTask1b', component: Form1bComponent },
-  { path: 'processes', component: ProcessesListComponent }
+  { path: 'processes', component: ProcessesListComponent },
+  { path: 'pushed-task-list', component: PushedTaskListComponent }
 ];
 
 @NgModule({

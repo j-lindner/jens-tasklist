@@ -10,12 +10,14 @@ import { TasksListComponent } from './components/tasks-list/tasks-list.component
 import { ProcessesListComponent } from './components/processes-list/processes-list.component';
 import { Form1aComponent } from './forms/form1a/form1a.component';
 import { Form1bComponent } from './forms/form1b/form1b.component';
+import {PushedTaskListComponent} from "./components/pushed-task-list/pushed-task-list.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskDetailsComponent,
     TasksListComponent,
+    PushedTaskListComponent,
     Form1aComponent,
     Form1bComponent,
     ProcessesListComponent

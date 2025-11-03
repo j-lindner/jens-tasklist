@@ -11,6 +11,9 @@
         <zeebe:userTask />
         <zeebe:assignmentDefinition assignee="=assignee1" />
         <zeebe:formDefinition externalReference="formForUserTask1a" />
+        <zeebe:taskListeners>
+          <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
+        </zeebe:taskListeners>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0hhep9n</bpmn:incoming>
       <bpmn:outgoing>Flow_1yetpxk</bpmn:outgoing>
@@ -20,6 +23,9 @@
         <zeebe:userTask />
         <zeebe:assignmentDefinition assignee="=assignee2" />
         <zeebe:formDefinition externalReference="formForUserTask2a" />
+        <zeebe:taskListeners>
+          <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
+        </zeebe:taskListeners>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1yetpxk</bpmn:incoming>
       <bpmn:outgoing>Flow_1f4vhmj</bpmn:outgoing>

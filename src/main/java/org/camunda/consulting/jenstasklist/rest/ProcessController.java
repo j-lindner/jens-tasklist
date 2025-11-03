@@ -2,6 +2,7 @@ package org.camunda.consulting.jenstasklist.rest;
 
 import io.camunda.client.CamundaClient;
 import io.camunda.client.api.response.ProcessInstanceEvent;
+import io.camunda.client.api.search.enums.ProcessInstanceState;
 import io.camunda.client.api.search.response.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,9 @@ public class ProcessController {
 
     @GetMapping("/processes")
     public List<ProcessInstance> getProcesses() {
-         return client.newProcessInstanceSearchRequest().send().join().items();
+         return client.newProcessInstanceSearchRequest()
+                 .filter(f -> f.state(ProcessInstanceState.ACTIVE))
+                 .send().join().items();
     }
 
 }
