@@ -3,8 +3,9 @@
   <div class="col-md-6">
     <h4>Pushed Tasks</h4>
     <ul class="list-group">
-      <li *ngFor="let task of tasks"
+      <li *ngFor="let task of pushedTasks"
           class="list-group-item"
+          [class.active]="task.userTaskKey === activeTaskKey"
           (click)="setActiveTask(task)">
         <div><strong>Assignee:</strong> {{ task.assignee }}</div>
         <div><strong>Priority:</strong> {{ task.priority }}</div>
@@ -16,11 +17,9 @@
   <!-- RIGHT COLUMN: Details -->
   <div class="col-md-6">
     <h2>Pushed Task Details</h2>
-    <div *ngIf="currentTask">
-      <pre>{{ currentTask | json }}</pre>
-    </div>
-    <div *ngIf="!currentTask">
-      <em>Select a task to see details</em>
-    </div>
+    <app-task-details
+      [currentTask]="currentTask"
+      [viewMode]="true">
+    </app-task-details>
   </div>
 </div>

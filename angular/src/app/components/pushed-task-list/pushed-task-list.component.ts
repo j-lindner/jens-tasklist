@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface PushedTask {
   action: string | null;
@@ -19,17 +20,18 @@ interface PushedTask {
   styleUrls: ['./pushed-task-list.component.css']
 })
 export class PushedTaskListComponent implements OnInit, OnDestroy {
-  tasks: PushedTask[] = [];
-  currentTask?: PushedTask;
+  pushedTasks: PushedTask[] = [];
+  currentTask: any = {}; // remains empty until a task is clicked
+  activeTaskKey: number | null = null;
   private eventSource: EventSource | null = null;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.eventSource = new EventSource('http://localhost:8080/api/task-updates');
     this.eventSource.onmessage = (event) => {
       const task: PushedTask = JSON.parse(event.data);
-      this.tasks.push(task);
+      this.pushedTasks.push(task);
       this.cdr.detectChanges();
     };
     this.eventSource.onerror = (error) => {
@@ -38,10 +40,21 @@ export class PushedTaskListComponent implements OnInit, OnDestroy {
   }
 
   setActiveTask(task: PushedTask): void {
-    // Log for debugging and always assign a new object reference
-    console.log('setActiveTask called:', task);
-    this.currentTask = { ...task };
-    this.cdr.detectChanges();
+    this.activeTaskKey = task.userTaskKey;
+    // Only load details when a task is clicked
+    this.currentTask = {}; // clear previous details
+    this.http.get<any[]>(`http://localhost:8080/api/tasks/${task.userTaskKey}`)
+      .subscribe({
+        next: (data) => {
+          this.currentTask = data && data.length ? data[0] : {};
+          this.cdr.detectChanges();
+        },
+        error: (e) => {
+          console.error(e);
+          this.currentTask = {};
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   ngOnDestroy(): void {

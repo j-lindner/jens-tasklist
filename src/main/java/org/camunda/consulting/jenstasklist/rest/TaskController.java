@@ -7,10 +7,7 @@ import io.camunda.client.api.search.filter.VariableValueFilter;
 import io.camunda.client.api.search.response.UserTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
@@ -37,6 +34,14 @@ public class TaskController {
     public List<UserTask> getTasks() {
 //        System.out.println("GET ALL TASKS NOW");
         return client.newUserTaskSearchRequest().filter(f -> f.state(UserTaskState.CREATED)).send().join().items();
+    }
+
+    @GetMapping("/tasks/{userTaskKey}")
+    public List<UserTask> getTask(@PathVariable long userTaskKey) {
+//        System.out.println("GET ALL TASKS NOW");
+        return client.newUserTaskSearchRequest()
+                .filter(f -> f.state(UserTaskState.CREATED).userTaskKey(userTaskKey))
+                .send().join().items();
     }
 
     @GetMapping("/tasks-var1-val1")
