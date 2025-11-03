@@ -8,9 +8,9 @@ import { AppComponent } from './app.component';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { ProcessesListComponent } from './components/processes-list/processes-list.component';
-import { Form1aComponent } from './forms/form1a/form1a.component';
-import { Form1bComponent } from './forms/form1b/form1b.component';
+import {VerifyCustomerIdentityComponent } from './forms/verify-customer-identity/verify-customer-identity.component';
 import {PushedTaskListComponent} from "./components/pushed-task-list/pushed-task-list.component";
+import {CollectCustomerDocumentsComponent} from "./forms/collect-customer-documents/collect-customer-documents.component";
 
 @NgModule({
   declarations: [
@@ -18,8 +18,8 @@ import {PushedTaskListComponent} from "./components/pushed-task-list/pushed-task
     TaskDetailsComponent,
     TasksListComponent,
     PushedTaskListComponent,
-    Form1aComponent,
-    Form1bComponent,
+    CollectCustomerDocumentsComponent,
+    VerifyCustomerIdentityComponent,
     ProcessesListComponent
   ],
   imports: [

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08uiver" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.40.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+  <bpmn:process id="TransferLargeAmount" name="Transfer Large Amount" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0hhep9n</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0hhep9n" sourceRef="StartEvent_1" targetRef="ReviewPaymentRequest" />
+    <bpmn:endEvent id="Event_1fea2n3">
+      <bpmn:incoming>Flow_0dbf229</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="ReviewPaymentRequest" name="Review Payment Request">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:assignmentDefinition assignee="=assignee1" />
+        <zeebe:formDefinition externalReference="review-payment-request-form" />
+        <zeebe:taskListeners>
+          <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
+        </zeebe:taskListeners>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0hhep9n</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f4f0o4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1f4f0o4" sourceRef="ReviewPaymentRequest" targetRef="VerifyCustomerIdentity" />
+    <bpmn:userTask id="VerifyCustomerIdentity" name="Verify Customer Identity">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:assignmentDefinition assignee="=assignee2" />
+        <zeebe:formDefinition externalReference="verify-customer-identity-form" />
+        <zeebe:taskListeners>
+          <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
+        </zeebe:taskListeners>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1f4f0o4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dbf229</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0dbf229" sourceRef="VerifyCustomerIdentity" targetRef="Event_1fea2n3" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TransferLargeAmount">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1fea2n3_di" bpmnElement="Event_1fea2n3">
+        <dc:Bounds x="572" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1ql4wex" bpmnElement="ReviewPaymentRequest">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1yzftzn" bpmnElement="VerifyCustomerIdentity">
+        <dc:Bounds x="430" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0hhep9n_di" bpmnElement="Flow_0hhep9n">
+        <di:waypoint x="218" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f4f0o4_di" bpmnElement="Flow_1f4f0o4">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="430" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dbf229_di" bpmnElement="Flow_0dbf229">
+        <di:waypoint x="530" y="120" />
+        <di:waypoint x="572" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
