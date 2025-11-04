@@ -3,3 +3,54 @@
   max-width: 750px;
   margin: auto;
 }
+
+.task-item {
+  cursor: pointer;
+  border-left: 4px solid;
+  margin-bottom: 5px;
+}
+
+.task-collect-customer-documents {
+  background-color: #e3f2fd;
+  border-left-color: #2196f3 !important;
+}
+
+.task-collect-customer-documents:hover {
+  background-color: #bbdefb;
+}
+
+.task-verify-customer-identity {
+  background-color: #e8f5e9;
+  border-left-color: #4caf50 !important;
+}
+
+.task-verify-customer-identity:hover {
+  background-color: #c8e6c9;
+}
+
+.task-review-application {
+  background-color: #f3e5f5;
+  border-left-color: #9c27b0 !important;
+}
+
+.task-review-application:hover {
+  background-color: #e1bee7;
+}
+
+.task-approve-account {
+  background-color: #fff3e0;
+  border-left-color: #ff9800 !important;
+}
+
+.task-approve-account:hover {
+  background-color: #ffe0b2;
+}
+
+.task-notify-customer {
+  background-color: #e0f2f1;
+  border-left-color: #009688 !important;
+}
+
+.task-notify-customer:hover {
+  background-color: #b2dfdb;
+}

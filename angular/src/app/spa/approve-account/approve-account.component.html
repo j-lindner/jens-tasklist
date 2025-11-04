@@ -1,0 +1,5 @@
+<div class="task-container approve-account">
+  <h2>Approve Account</h2>
+  <label>Approval Code:</label>
+  <input [ngModel]="inputValue" (ngModelChange)="inputValueChange.emit($event)" name="approvalCode" required />
+</div>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08uiver" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.40.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08uiver" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.40.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:process id="OpenSecuritiesAccount" name="Open Securities Account" isExecutable="true">
     <bpmn:extensionElements />
     <bpmn:startEvent id="StartEvent_1">
@@ -10,10 +10,13 @@
       <bpmn:extensionElements>
         <zeebe:userTask />
         <zeebe:assignmentDefinition assignee="=assignee1" />
-        <zeebe:formDefinition externalReference="collect-customer-documents-form" />
+        <zeebe:formDefinition externalReference="collect-customer-documents" />
         <zeebe:taskListeners>
           <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
         </zeebe:taskListeners>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;collect-customer-documents&#34;" target="myExternalFormReference" />
+        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0hhep9n</bpmn:incoming>
       <bpmn:outgoing>Flow_1yetpxk</bpmn:outgoing>
@@ -22,19 +25,97 @@
       <bpmn:extensionElements>
         <zeebe:userTask />
         <zeebe:assignmentDefinition assignee="=assignee2" />
-        <zeebe:formDefinition externalReference="verify-customer-identity-form" />
+        <zeebe:formDefinition externalReference="verify-customer-identity" />
         <zeebe:taskListeners>
           <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
         </zeebe:taskListeners>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;verify-customer-identity&#34;" target="myExternalFormReference" />
+        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1yetpxk</bpmn:incoming>
       <bpmn:outgoing>Flow_1f4vhmj</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="Flow_1yetpxk" sourceRef="CollectCustomerDocuments" targetRef="VerifyCustomerIdentity" />
     <bpmn:endEvent id="Event_1fea2n3">
-      <bpmn:incoming>Flow_1f4vhmj</bpmn:incoming>
+      <bpmn:incoming>Flow_1a2sr65</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_1f4vhmj" sourceRef="VerifyCustomerIdentity" targetRef="Event_1fea2n3" />
+    <bpmn:sequenceFlow id="Flow_1f4vhmj" sourceRef="VerifyCustomerIdentity" targetRef="ReviewApplication" />
+    <bpmn:userTask id="ReviewApplication" name="Review Application">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:assignmentDefinition assignee="=assignee2" />
+        <zeebe:formDefinition externalReference="review-application" />
+        <zeebe:taskListeners>
+          <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
+        </zeebe:taskListeners>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;review-application&#34;" target="myExternalFormReference" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1f4vhmj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gyh6dq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1gyh6dq" sourceRef="ReviewApplication" targetRef="Gateway_1b0oz8w" />
+    <bpmn:userTask id="NotifyCustomer" name="Notify Customer">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:assignmentDefinition assignee="=assignee2" />
+        <zeebe:formDefinition externalReference="notify-customer" />
+        <zeebe:taskListeners>
+          <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
+          <zeebe:taskListener eventType="completing" type="completeTask" />
+        </zeebe:taskListeners>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;notify-customer&#34;" target="myExternalFormReference" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_14vrl0z</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a2sr65</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1a2sr65" sourceRef="NotifyCustomer" targetRef="Event_1fea2n3" />
+    <bpmn:userTask id="ApproveAccount" name="Approve Account">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:assignmentDefinition assignee="=assignee2" />
+        <zeebe:formDefinition externalReference="approve-account" />
+        <zeebe:taskListeners>
+          <zeebe:taskListener eventType="creating" retries="" type="pushTask" />
+        </zeebe:taskListeners>
+        <zeebe:ioMapping>
+          <zeebe:input source="=&#34;approve-account&#34;" target="myExternalFormReference" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ywv0m7</bpmn:incoming>
+      <bpmn:outgoing>Flow_14vrl0z</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_14vrl0z" sourceRef="ApproveAccount" targetRef="NotifyCustomer" />
+    <bpmn:exclusiveGateway id="Gateway_1b0oz8w" default="Flow_0ywv0m7">
+      <bpmn:incoming>Flow_1gyh6dq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ywv0m7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_04hfv0m</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0ywv0m7" sourceRef="Gateway_1b0oz8w" targetRef="ApproveAccount" />
+    <bpmn:sequenceFlow id="Flow_04hfv0m" sourceRef="Gateway_1b0oz8w" targetRef="Activity_11e49ez">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=approved = "false"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Activity_11e49ez" name="send automatic denial">
+      <bpmn:extensionElements>
+        <zeebe:executionListeners>
+          <zeebe:executionListener eventType="start" type="completeTask" />
+        </zeebe:executionListeners>
+        <zeebe:properties>
+          <zeebe:property name="camundaModeler:exampleOutputJson" value="" />
+        </zeebe:properties>
+        <zeebe:taskDefinition type="send-automatic-denial" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_04hfv0m</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l36izg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1g1evgd">
+      <bpmn:incoming>Flow_0l36izg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0l36izg" sourceRef="Activity_11e49ez" targetRef="Event_1g1evgd" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="OpenSecuritiesAccount">
@@ -49,8 +130,30 @@
         <dc:Bounds x="420" y="80" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_147xk1f" bpmnElement="ReviewApplication">
+        <dc:Bounds x="580" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1fea2n3_di" bpmnElement="Event_1fea2n3">
-        <dc:Bounds x="572" y="102" width="36" height="36" />
+        <dc:Bounds x="1112" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0qrb6at" bpmnElement="NotifyCustomer">
+        <dc:Bounds x="980" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0ch363j" bpmnElement="ApproveAccount">
+        <dc:Bounds x="830" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1b0oz8w_di" bpmnElement="Gateway_1b0oz8w" isMarkerVisible="true">
+        <dc:Bounds x="735" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bqm6ez_di" bpmnElement="Activity_11e49ez">
+        <dc:Bounds x="830" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1g1evgd_di" bpmnElement="Event_1g1evgd">
+        <dc:Bounds x="982" y="212" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0hhep9n_di" bpmnElement="Flow_0hhep9n">
         <di:waypoint x="218" y="120" />
@@ -62,7 +165,32 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1f4vhmj_di" bpmnElement="Flow_1f4vhmj">
         <di:waypoint x="520" y="120" />
-        <di:waypoint x="572" y="120" />
+        <di:waypoint x="580" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gyh6dq_di" bpmnElement="Flow_1gyh6dq">
+        <di:waypoint x="680" y="120" />
+        <di:waypoint x="735" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a2sr65_di" bpmnElement="Flow_1a2sr65">
+        <di:waypoint x="1080" y="120" />
+        <di:waypoint x="1112" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14vrl0z_di" bpmnElement="Flow_14vrl0z">
+        <di:waypoint x="930" y="120" />
+        <di:waypoint x="980" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ywv0m7_di" bpmnElement="Flow_0ywv0m7">
+        <di:waypoint x="785" y="120" />
+        <di:waypoint x="830" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04hfv0m_di" bpmnElement="Flow_04hfv0m">
+        <di:waypoint x="760" y="145" />
+        <di:waypoint x="760" y="230" />
+        <di:waypoint x="830" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0l36izg_di" bpmnElement="Flow_0l36izg">
+        <di:waypoint x="930" y="230" />
+        <di:waypoint x="982" y="230" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

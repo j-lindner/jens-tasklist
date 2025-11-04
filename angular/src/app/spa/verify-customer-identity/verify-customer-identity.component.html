@@ -1,0 +1,5 @@
+<div class="task-container verify-customer-identity">
+  <h2>Verify Customer Identity</h2>
+  <label>Identity Number:</label>
+  <input [ngModel]="inputValue" (ngModelChange)="inputValueChange.emit($event)" name="identityNumber" required />
+</div>

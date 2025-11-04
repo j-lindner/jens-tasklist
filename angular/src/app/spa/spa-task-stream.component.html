@@ -1,0 +1,51 @@
+<div *ngIf="currentTask">
+  <form (ngSubmit)="submitTask()">
+    <collect-customer-documents
+      *ngIf="currentTask.externalFormReference === 'collect-customer-documents'"
+      [(inputValue)]="inputValue"
+      [userTaskKey]="currentTask.userTaskKey">
+    </collect-customer-documents>
+    <verify-customer-identity
+      *ngIf="currentTask.externalFormReference === 'verify-customer-identity'"
+      [(inputValue)]="inputValue">
+    </verify-customer-identity>
+    <review-application
+      *ngIf="currentTask.externalFormReference === 'review-application'"
+      [(inputValue)]="inputValue">
+    </review-application>
+    <approve-account
+      *ngIf="currentTask.externalFormReference === 'approve-account'"
+      [(inputValue)]="inputValue">
+    </approve-account>
+    <notify-customer
+      *ngIf="currentTask.externalFormReference === 'notify-customer'"
+      [(inputValue)]="inputValue">
+    </notify-customer>
+
+    <div *ngIf="currentTask.externalFormReference !== 'collect-customer-documents'
+                && currentTask.externalFormReference !== 'verify-customer-identity'
+                && currentTask.externalFormReference !== 'review-application'
+                && currentTask.externalFormReference !== 'notify-customer'
+                && currentTask.externalFormReference !== 'approve-account'">
+      <h2>Generic User Task</h2>
+      <pre>{{ currentTask | json }}</pre>
+    </div>
+
+    <!-- Display all process variables -->
+    <div *ngIf="currentTask.processVariables" class="process-variables" [ngClass]="'task-' + currentTask.externalFormReference">
+      <h3>Process Variables</h3>
+      <ul>
+        <li *ngFor="let key of processVariableKeys()">
+          <strong>{{ key }}:</strong> {{ currentTask.processVariables[key] }}
+        </li>
+      </ul>
+    </div>
+    <button type="submit" class="submit-button" [ngClass]="'task-' + currentTask.externalFormReference"
+      *ngIf="currentTask.externalFormReference !== 'collect-customer-documents'">
+      Submit
+    </button>
+  </form>
+</div>
+<div *ngIf="!currentTask">
+  <p>Waiting for next user task...</p>
+</div>

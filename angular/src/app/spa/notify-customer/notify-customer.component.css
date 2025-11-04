@@ -1,0 +1,22 @@
+.task-container {
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid;
+}
+
+.notify-customer {
+  background-color: #e0f2f1;
+  border-color: #009688;
+}
+
+.notify-customer h2 {
+  color: #00796b;
+}
+
+.notify-customer input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #009688;
+  border-radius: 4px;
+}

@@ -1,0 +1,5 @@
+<div class="task-container notify-customer">
+  <h2>Notify Customer</h2>
+  <label>Notification Message:</label>
+  <input [ngModel]="inputValue" (ngModelChange)="inputValueChange.emit($event)" name="notificationMessage" required />
+</div>

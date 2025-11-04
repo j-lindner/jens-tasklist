@@ -1,0 +1,22 @@
+.task-container {
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid;
+}
+
+.review-application {
+  background-color: #f3e5f5;
+  border-color: #9c27b0;
+}
+
+.review-application h2 {
+  color: #7b1fa2;
+}
+
+.review-application input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #9c27b0;
+  border-radius: 4px;
+}

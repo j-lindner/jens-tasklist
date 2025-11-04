@@ -8,19 +8,25 @@ import { AppComponent } from './app.component';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { ProcessesListComponent } from './components/processes-list/processes-list.component';
-import {VerifyCustomerIdentityComponent } from './forms/verify-customer-identity/verify-customer-identity.component';
-import {PushedTaskListComponent} from "./components/pushed-task-list/pushed-task-list.component";
-import {CollectCustomerDocumentsComponent} from "./forms/collect-customer-documents/collect-customer-documents.component";
+import {VerifyCustomerIdentityComponent } from './spa/verify-customer-identity/verify-customer-identity.component';
+import {CollectCustomerDocumentsComponent} from "./spa/collect-customer-documents/collect-customer-documents.component";
+import {SpaTaskStreamComponent} from "./spa/spa-task-stream.component";
+import {ApproveAccountComponent} from "./spa/approve-account/approve-account.component";
+import {NotifyCustomerComponent} from "./spa/notify-customer/notify-customer.component";
+import {ReviewApplicationComponent} from "./spa/review-application/review-application.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskDetailsComponent,
     TasksListComponent,
-    PushedTaskListComponent,
+    ApproveAccountComponent,
     CollectCustomerDocumentsComponent,
+    NotifyCustomerComponent,
+    ReviewApplicationComponent,
     VerifyCustomerIdentityComponent,
-    ProcessesListComponent
+    ProcessesListComponent,
+    SpaTaskStreamComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,124 @@
+h2 {
+  margin-top: 1em;
+}
+button {
+  margin-top: 2em;
+}
+
+.process-variables {
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid;
+  margin-top: 20px;
+}
+
+.process-variables h3 {
+  margin-top: 0;
+}
+
+.process-variables ul {
+  list-style: none;
+  padding: 0;
+}
+
+.process-variables li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  margin-top: 20px;
+}
+
+/* Color schemes for process variables and submit button */
+.process-variables.task-collect-customer-documents {
+  background-color: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.process-variables.task-collect-customer-documents h3 {
+  color: #1976d2;
+}
+
+.submit-button.task-collect-customer-documents {
+  background-color: #2196f3;
+}
+
+.submit-button.task-collect-customer-documents:hover {
+  background-color: #1976d2;
+}
+
+.process-variables.task-verify-customer-identity {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.process-variables.task-verify-customer-identity h3 {
+  color: #388e3c;
+}
+
+.submit-button.task-verify-customer-identity {
+  background-color: #4caf50;
+}
+
+.submit-button.task-verify-customer-identity:hover {
+  background-color: #388e3c;
+}
+
+.process-variables.task-review-application {
+  background-color: #f3e5f5;
+  border-color: #9c27b0;
+}
+
+.process-variables.task-review-application h3 {
+  color: #7b1fa2;
+}
+
+.submit-button.task-review-application {
+  background-color: #9c27b0;
+}
+
+.submit-button.task-review-application:hover {
+  background-color: #7b1fa2;
+}
+
+.process-variables.task-approve-account {
+  background-color: #fff3e0;
+  border-color: #ff9800;
+}
+
+.process-variables.task-approve-account h3 {
+  color: #f57c00;
+}
+
+.submit-button.task-approve-account {
+  background-color: #ff9800;
+}
+
+.submit-button.task-approve-account:hover {
+  background-color: #f57c00;
+}
+
+.process-variables.task-notify-customer {
+  background-color: #e0f2f1;
+  border-color: #009688;
+}
+
+.process-variables.task-notify-customer h3 {
+  color: #00796b;
+}
+
+.submit-button.task-notify-customer {
+  background-color: #009688;
+}
+
+.submit-button.task-notify-customer:hover {
+  background-color: #00796b;
+}
+
+

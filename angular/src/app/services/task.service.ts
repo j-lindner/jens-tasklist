@@ -15,14 +15,6 @@ export class TaskService {
     return this.http.get<Task[]>(`${baseUrl}/tasks`);
   }
 
-  getManuAssigned(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${baseUrl}/tasks-assigned-manu`);
-  }
-
-  getVar1Val1(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${baseUrl}/tasks-var1-val1`);
-  }
-
   get(id: any): Observable<Task> {
     return this.http.get<Task>(`${baseUrl}/${id}`);
   }
